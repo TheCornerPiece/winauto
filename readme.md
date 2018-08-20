@@ -1,11 +1,11 @@
-# winauto
-*Making Windows Gui interactions easy and fast.*
+# WinAuto
+*Making Windows GUI interactions easy and fast.*
 
-Winauto is a simple Python2 module, written in C, to simulate user input efficiently.
+WinAuto is a simple Python2 module, written in C, to simulate user input efficiently.
 
 ## Features
 - set_mouse_pos - Move the mouse to a specified location
 - get_mouse_pos - Receive the current mouse location
-- click - Click one of the three mouse buttons
-- type_str - Simulates typing on a Keyboard
-- press_key - Simulates Key-presses on a Keyboard
+- click - Click, press or release either the left or right mouse button.
+- type_str - Simulates typing on a keyboard
+- press_key - Simulates key-presses on a keyboard
