@@ -1,21 +1,24 @@
-import setuptools
+import sys
+from distutils.core import setup, Extension
 
-with open("README.md", "r") as fh:
-    long_description = fh.read()
+static_libraries = ['user32']
+static_lib_dir = '/system/lib'
+libraries = []
+library_dirs = ['/system/lib', '/system/lib64']
+include_dirs = []
 
-setuptools.setup(
-    name="winauto",
-    version="0.0.1",
-    author="TheCornerPiece",
-    author_email="cornerpieceofficial@gmail.com",
-    description="A simple Windows module to simulate user input (written in C)",
-    long_description=long_description,
-    long_description_content_type="text/markdown",
-    url="https://github.com/thecornerpiece/winauto",
-    packages=setuptools.find_packages(),
-    classifiers=[
-        "Programming Language :: Python :: 2",
-        "License :: OSI Approved :: MIT License",
-        "Operating System :: Windows",
-    ],
-)
+if sys.platform == 'win32':
+    libraries.extend(static_libraries)
+    library_dirs.append(static_lib_dir)
+    extra_objects = []
+else: # POSIX
+    extra_objects = ['{}/lib{}.a'.format(static_lib_dir, l) for l in static_libraries]
+
+ext = Extension('winauto',
+                sources=['main.c'],
+                libraries=libraries,
+                library_dirs=library_dirs,
+                include_dirs=include_dirs,
+                extra_objects=extra_objects)   
+
+setup(name='winauto', version='0.0.7', ext_modules=[ext])
